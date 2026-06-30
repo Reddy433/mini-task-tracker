@@ -78,7 +78,7 @@ export default function FilterBar({
           onChange={(e) => onQueryChange(e.target.value)}
           placeholder="Search by title…"
           aria-label="Search tasks by title"
-          className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
+          className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-base text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 sm:text-sm"
         />
       </div>
     </div>

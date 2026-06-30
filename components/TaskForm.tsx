@@ -10,8 +10,11 @@ interface Props {
 
 const PRIORITIES: TaskPriority[] = ["low", "medium", "high"];
 
+// Note: text-base (16px) on mobile prevents iOS Safari from auto-zooming —
+// and shifting the whole layout — when an input is focused. sm:text-sm keeps
+// the tighter 14px on larger screens where tap-zoom isn't a concern.
 const inputBase =
-  "block w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100";
+  "block w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-base text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 sm:text-sm";
 
 export default function TaskForm({ onCreate }: Props) {
   const [title, setTitle] = useState("");
