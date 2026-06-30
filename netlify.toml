@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Official Next.js runtime for Netlify. It turns App Router route handlers
+# (our /api/tasks endpoints) into Netlify Functions and wires up Netlify Blobs.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
