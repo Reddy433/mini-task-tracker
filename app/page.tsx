@@ -90,7 +90,7 @@ export default function HomePage() {
     <>
       <Header counts={counts} />
 
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
+      <main className="mx-auto max-w-5xl px-4 pb-8 pt-4 sm:px-6 sm:pb-10 sm:pt-6">
         <div className="mb-8">
           <TaskForm onCreate={handleCreate} />
         </div>
