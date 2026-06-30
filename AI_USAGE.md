@@ -1,5 +1,8 @@
 # AI Usage
 
+> **Live demo:** https://vennapusa.netlify.app
+> **Repository:** https://github.com/Reddy433/mini-task-tracker
+
 ## 1. Which AI tools did you use?
 
 Claude Code (Anthropic) — an agentic coding assistant — was used to scaffold and
@@ -43,6 +46,7 @@ Essentially all of the source was generated with AI assistance:
   - patch/delete a non-existent id → 404,
   - delete → 200 and list shrinks.
 - Confirmed the home page renders (HTTP 200) from the built app.
+- **Verified the live Netlify deployment** at https://vennapusa.netlify.app — created, listed, and deleted a task against the production API to confirm Netlify Blobs persistence works end-to-end in the deployed environment.
 
 ## 6. Did AI produce anything incorrect or risky?
 

@@ -4,8 +4,8 @@ A small but fully usable task tracker: create tasks, mark them complete, and
 filter or search your list. Built with Next.js (App Router) and deployed on
 Netlify with server-side persistence via Netlify Blobs.
 
-> **Live demo:** _add your Netlify URL here after deploying_
-> **Repository:** _add your GitHub URL here_
+> **Live demo:** https://vennapusa.netlify.app
+> **Repository:** https://github.com/Reddy433/mini-task-tracker
 
 ## Project overview
 
