@@ -56,7 +56,19 @@ Essentially all of the source was generated with AI assistance:
 
 ## 7. What would you improve if you had more time?
 
-- Move from a single-JSON-document store to a real database with row-level writes (removes a potential write-race under concurrency).
-- Add inline edit UI (the API already supports it), optimistic create, and toast notifications.
+- **Proper SQL database integration with a cleaner architecture.** The current
+  Netlify Blobs store keeps the whole task list in a single JSON document, which
+  is simple but rewrites everything on each change. With more time I'd move to a
+  real relational database (PostgreSQL via Supabase/Neon, or SQLite/Turso) using
+  a typed query layer or ORM (e.g. Prisma/Drizzle), with row-level inserts and
+  updates, indexes on `status`/`createdAt`, and a clear data-access/repository
+  layer separating the API routes from persistence. This removes the
+  read-modify-write race and scales to large lists.
+- **More polished UI/UX** — refined visual design, smoother transitions and
+  micro-interactions, toast notifications, optimistic create, dark mode, and a
+  fully responsive, accessible component set.
+- **Deeper API integration** — wire the existing server-side filter/search into
+  the UI (debounced) instead of client-side filtering, add pagination/sorting,
+  proper request/response typing end-to-end, and consistent error envelopes.
+- Inline **edit** UI (the API already supports `PATCH` on title/description/priority/due date).
 - Add integration tests for the API route handlers and component tests with Testing Library.
-- Wire the existing server-side filter/search into the UI with debouncing for very large lists, plus sorting and overdue highlighting.

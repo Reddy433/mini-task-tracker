@@ -80,6 +80,37 @@ input — it re-validates in `lib/validation.ts`.
 Errors return a consistent `{ "errors": string[] }` body with an appropriate
 HTTP status (400 / 404).
 
+#### Live examples
+
+The deployed API is browsable directly (base URL: `https://vennapusa.netlify.app`):
+
+| What | URL |
+| ---- | --- |
+| All tasks | https://vennapusa.netlify.app/api/tasks |
+| Only completed | https://vennapusa.netlify.app/api/tasks?status=completed |
+| Only open | https://vennapusa.netlify.app/api/tasks?status=open |
+| Search by title | https://vennapusa.netlify.app/api/tasks?q=gym |
+| Filter + search combined | https://vennapusa.netlify.app/api/tasks?status=completed&q=gym |
+
+Create / update / delete (via `curl`):
+
+```bash
+BASE=https://vennapusa.netlify.app
+
+# Create a task
+curl -X POST $BASE/api/tasks \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Buy groceries","description":"Milk and eggs","priority":"low"}'
+
+# Mark a task completed (use an id from GET /api/tasks)
+curl -X PATCH $BASE/api/tasks/<id> \
+  -H 'Content-Type: application/json' \
+  -d '{"status":"completed"}'
+
+# Delete a task
+curl -X DELETE $BASE/api/tasks/<id>
+```
+
 ## How to run locally
 
 Requires **Node.js 18.17+** (developed on Node 20).
