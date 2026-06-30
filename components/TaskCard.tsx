@@ -67,7 +67,7 @@ export default function TaskCard({ task, onToggle, onDelete, busy }: Props) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h3
-              className={`font-medium ${
+              className={`min-w-0 [overflow-wrap:anywhere] font-medium ${
                 completed ? "text-slate-400 line-through" : "text-slate-800"
               }`}
             >
@@ -95,7 +95,7 @@ export default function TaskCard({ task, onToggle, onDelete, busy }: Props) {
 
           {task.description && (
             <p
-              className={`mt-1 whitespace-pre-wrap text-sm ${
+              className={`mt-1 whitespace-pre-wrap break-words text-sm ${
                 completed ? "text-slate-400" : "text-slate-600"
               }`}
             >
