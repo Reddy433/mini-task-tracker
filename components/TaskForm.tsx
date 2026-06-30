@@ -10,6 +10,9 @@ interface Props {
 
 const PRIORITIES: TaskPriority[] = ["low", "medium", "high"];
 
+const inputBase =
+  "block w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100";
+
 export default function TaskForm({ onCreate }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -48,68 +51,85 @@ export default function TaskForm({ onCreate }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
+      className="rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm shadow-slate-200/60 sm:p-6"
       noValidate
     >
-      <h2 className="mb-4 text-base font-semibold text-slate-800">
-        Add a task
-      </h2>
-
-      <div className="space-y-3">
-        <div>
-          <label
-            htmlFor="title"
-            className="mb-1 block text-sm font-medium text-slate-700"
+      <div className="mb-5 flex items-center gap-2">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            className="h-4 w-4"
+            aria-hidden="true"
           >
-            Title <span className="text-rose-500">*</span>
-          </label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            maxLength={TITLE_MAX}
-            onChange={(e) => {
-              setTitle(e.target.value);
-              if (error) setError(null);
-            }}
-            placeholder="e.g. Write project README"
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
-            aria-invalid={Boolean(error)}
-          />
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </span>
+        <h2 className="text-base font-semibold text-slate-800">Add a task</h2>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {/* Left column: title + description */}
+        <div className="min-w-0 space-y-4 md:col-span-2">
+          <div>
+            <label
+              htmlFor="title"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
+            >
+              Title <span className="text-rose-500">*</span>
+            </label>
+            <input
+              id="title"
+              type="text"
+              value={title}
+              maxLength={TITLE_MAX}
+              onChange={(e) => {
+                setTitle(e.target.value);
+                if (error) setError(null);
+              }}
+              placeholder="e.g. Write project README"
+              className={`${inputBase} ${
+                error ? "border-rose-300 focus:border-rose-400 focus:ring-rose-100" : ""
+              }`}
+              aria-invalid={Boolean(error)}
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="description"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
+            >
+              Description
+            </label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={3}
+              placeholder="Optional details, links, or notes…"
+              className={`${inputBase} resize-y`}
+            />
+          </div>
         </div>
 
-        <div>
-          <label
-            htmlFor="description"
-            className="mb-1 block text-sm font-medium text-slate-700"
-          >
-            Description
-          </label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={2}
-            placeholder="Optional details"
-            className="w-full resize-y rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
-          />
-        </div>
-
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <div className="flex-1">
+        {/* Right column: priority, due date, submit */}
+        <div className="flex min-w-0 flex-col gap-4">
+          <div>
             <label
               htmlFor="priority"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
             >
               Priority
             </label>
             <select
               id="priority"
               value={priority}
-              onChange={(e) =>
-                setPriority(e.target.value as TaskPriority | "")
-              }
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm capitalize outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+              onChange={(e) => setPriority(e.target.value as TaskPriority | "")}
+              className={`${inputBase} cursor-pointer capitalize`}
             >
               <option value="">None</option>
               {PRIORITIES.map((p) => (
@@ -119,10 +139,11 @@ export default function TaskForm({ onCreate }: Props) {
               ))}
             </select>
           </div>
-          <div className="flex-1">
+
+          <div>
             <label
               htmlFor="dueDate"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1.5 block text-sm font-medium text-slate-700"
             >
               Due date
             </label>
@@ -131,25 +152,39 @@ export default function TaskForm({ onCreate }: Props) {
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+              className={`${inputBase} cursor-pointer`}
             />
           </div>
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="mt-auto inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-indigo-500/30 transition hover:from-indigo-500 hover:to-indigo-400 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {submitting ? "Adding…" : "Add task"}
+          </button>
         </div>
-
-        {error && (
-          <p role="alert" className="text-sm font-medium text-rose-600">
-            {error}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {submitting ? "Adding…" : "Add task"}
-        </button>
       </div>
+
+      {error && (
+        <p
+          role="alert"
+          className="mt-4 flex items-center gap-1.5 text-sm font-medium text-rose-600"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            className="h-4 w-4 shrink-0"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v4M12 16h.01" strokeLinecap="round" />
+          </svg>
+          {error}
+        </p>
+      )}
     </form>
   );
 }
