@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = ".next"
 
+# Pin the Node version so Netlify builds match local (Next 14.2 needs >= 18.17).
+[build.environment]
+  NODE_VERSION = "20"
+
 # Official Next.js runtime for Netlify. It turns App Router route handlers
 # (our /api/tasks endpoints) into Netlify Functions and wires up Netlify Blobs.
 [[plugins]]
